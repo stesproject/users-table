@@ -1,0 +1,36 @@
+input {
+	display: block;
+	padding: 0.5rem 0.75rem;
+	width: 14rem;
+	font-size: 1rem;
+	line-height: 1.25;
+	color: #55595c;
+	background-color: #fff;
+	background-image: none;
+	/* background-clip: padding-box; */
+	border-top: 0;
+	border-right: 0;
+	border-bottom: 1px solid $color-grey;
+	border-left: 0;
+	border-radius: $radius;
+
+	&:focus {
+		outline: 0;
+		border-bottom-color: $color-primary;
+		background: $form-focus;
+	}
+
+	&.inputWrong {
+		border-bottom: 1px solid $color-inputWrong;
+	}
+
+	&.inputOk {
+		background-color: $color-inputOk;
+	}
+}
+
+.error {
+	font-size: 0.85em;
+	color: $color-inputWrong;
+	width: 200px;
+}
