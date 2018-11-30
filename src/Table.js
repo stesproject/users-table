@@ -15,17 +15,18 @@ class Table extends React.Component {
 
 		return (
 			<React.Fragment>
-				{this.getRows()}
+				{this.displayRows()}
 			</React.Fragment>
 		);
 	}
 
-	getRows() {
-		const {className, data} = this.props;
+	// Display all the table rows.
+	displayRows() {
+		const {data} = this.props;
 
 		if (data == null) return null;
-
-		return data.map((data) => <Row key={uid(data)} fields={data} className={className} />);
+		
+		return data.map((data, index) => <Row key={uid(data)} id={index} fields={data} {...this.props} />);
 	}
 }
 

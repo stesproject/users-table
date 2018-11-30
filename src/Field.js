@@ -1,23 +1,23 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 class Field extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			className: "",
-			errorMessage: "",
+			errorMessage: ""
 		};
 		this.checkField = this.checkField.bind(this);
 		this.setFocus = this.setFocus.bind(this);
-		this.MANDATORY = '*';
+		this.MANDATORY = "*";
 	}
 
 	render() {
 		const {label, required, message, pattern, type} = this.props;
 		const {className, errorMessage} = this.state;
 		let fieldLabel = required ? label.concat(this.MANDATORY) : label;
-		
+
 		return (
 			<label>
 				{fieldLabel}
@@ -36,37 +36,38 @@ class Field extends React.Component {
 		);
 	}
 
-	setFocus(event) {
+	// Called when a field get focus.
+	setFocus(e) {
 		this.setState({className: "", errorMessage: ""});
 	}
 
-	checkField(event) {
+	// Called when a field lose focus.
+	checkField(e) {
 		const {checkValidity} = this.props;
 
-		let isValid = event.target.checkValidity();
+		let isValid = e.target.checkValidity();
 
 		if (!isValid) {
-			this.setState({errorMessage: event.target.title, className: isValid ? "inputOk" : "inputWrong"});
-			console.log(event.target.validationMessage);
-		}
-		else {
+			this.setState({errorMessage: e.target.title, className: isValid ? "inputOk" : "inputWrong"});
+			console.log(e.target.validationMessage);
+		} else {
 			this.setState({className: "inputOk"});
 		}
 
-		checkValidity(event);
+		checkValidity(e);
 	}
 }
 
 Field.defaultProps = {
 	required: false,
-	title: "",
-}
+	title: ""
+};
 
 Field.propTypes = {
 	required: PropTypes.bool,
 	title: PropTypes.string,
 	type: PropTypes.string.isRequired,
-	label: PropTypes.string.isRequired,
-}
+	label: PropTypes.string.isRequired
+};
 
 export default Field;

@@ -3,7 +3,8 @@
     justify-content: space-between;
     padding: 1rem;
     background-color: $t-header-color;
-    font-weight: 600;
+	font-weight: 600;
+	padding-right: 300px;
     /* border: $t-border-color; */
 }
 
@@ -45,8 +46,4 @@ button {
 		background-color: $button-disabled;
 		/* display: none; */
 	}
-}
-
-.blank {
-    margin-left: 220px;
 }

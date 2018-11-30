@@ -2,14 +2,17 @@ import React from "react";
 import Record from "Record";
 import {uid} from "react-uid";
 import Button from "Button";
-import EmptySpace from "./EmptySpace";
 import PropTypes from "prop-types";
 
 class Row extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			index: this.props.id,
+			getRecords: null
 		};
+		this.editRow = this.editRow.bind(this);
+		this.deleteRow = this.deleteRow.bind(this);
 	}
 
 	render() {
@@ -19,21 +22,21 @@ class Row extends React.Component {
 		return (
 			<React.Fragment>
 				<div className={className}>
-					{this.getFields()}
+					{this.displayRecords()}
 					{this.showButtons()}
 				</div>
 			</React.Fragment>
 		);
 	}
 
-	getFields() {
+	// Display all the records in a row.
+	displayRecords() {
 		const {fields} = this.props;
 
-		console.log(fields);
-
-		return fields.map((field) => <Record key={uid(field)} records={field} />);
+		return fields.map((field, index) => <Record key={uid(field, index)} records={field} />);
 	}
 
+	// Display the action buttons.
 	showButtons() {
 		const {className} = this.props;
 
@@ -41,31 +44,34 @@ class Row extends React.Component {
 			return (
 				<div className="Actions">
 					<Button text="edit" onClick={this.editRow} />
-					<Button text="delete" onClick={this.deleteRow}/>
+					<Button text="delete" onClick={this.deleteRow} />
 				</div>
 			);
 		}
-		else {
-			return(
-				<EmptySpace/>
-			); 
-		}
 	}
 
+	// Called when the user press the edit button.
 	editRow(e) {
-		const {fields} = this.props;
+		const {fields, getRecords} = this.props;
+		const {index} = this.state;
 
-		console.log(rowFields);
+		getRecords(fields, index);
 	}
 
+	// Called when the user press the delete button.
 	deleteRow(e) {
-		console.log(e.target);
+		const {deleteRow} = this.props;
+		const {index} = this.state;
+
+		deleteRow(index);
 	}
 }
 
 Row.propTypes = {
 	className: PropTypes.string,
 	fields: PropTypes.array.isRequired,
+	getRecords: PropTypes.func,
+	deleteRow: PropTypes.func,
 };
 
 export default Row;
